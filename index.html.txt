@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#18382d">
+<title>خانه‌نگار | خانه رؤیایی تو</title>
+<style>
+:root {
+  --green:#18382d;
+  --light:#e5ebdd;
+  --cream:#f7f5ee;
+  --gold:#c9a66b;
+  --text:#253b31;
+  --muted:#718078;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--cream);color:var(--text);
+  font-family:Tahoma,Arial,sans-serif;line-height:1.9;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+header{
+  padding:18px 6%;display:flex;justify-content:space-between;
+  align-items:center;border-bottom:1px solid #dfe5d9;
+}
+.logo{font-size:21px;font-weight:bold;color:var(--green)}
+.logo span{color:var(--gold)}
+.header-note{font-size:12px;color:var(--muted)}
+.hero{
+  max-width:1050px;margin:35px auto;padding:0 20px;
+  display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center;
+}
+.tag{
+  display:inline-block;background:var(--light);padding:4px 13px;
+  border-radius:30px;font-size:12px;color:var(--green);
+}
+h1{font-size:clamp(30px,5vw,49px);line-height:1.5;margin:15px 0}
+.hero p{color:var(--muted)}
+.art{
+  min-height:270px;border-radius:24px;position:relative;
+  overflow:hidden;background:linear-gradient(140deg,#d8e3cd,#a9c1ad);
+  display:flex;align-items:center;justify-content:center;
+}
+.sun{
+  position:absolute;width:75px;height:75px;border-radius:50%;
+  background:#e8c989;top:25px;left:35px;
+}
+.house{
+  position:relative;width:190px;height:110px;background:#fff8e9;
+  border:4px solid var(--green);border-top:0;margin-top:55px;
+  box-shadow:12px 12px 0 #78927b;
+}
+.roof{
+  position:absolute;top:-67px;right:-15px;width:0;height:0;
+  border-left:107px solid transparent;
+  border-right:107px solid transparent;
+  border-bottom:72px solid var(--green);
+}
+.door{
+  position:absolute;bottom:0;left:65px;width:45px;height:70px;
+  background:#b5c9a8;border:3px solid var(--green);
+  border-bottom:0;border-radius:7px 7px 0 0;
+}
+.win{
+  position:absolute;right:18px;top:20px;width:38px;height:35px;
+  background:#c9e0dd;border:3px solid var(--green);
+}
+.win:after{content:"";position:absolute;height:100%;left:15px;border-left:2px solid var(--green)}
+.win:before{content:"";position:absolute;width:100%;top:14px;border-top:2px solid var(--green)}
+main{max-width:850px;margin:15px auto 60px;padding:0 18px}
+.progress{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.progress div{
+  text-align:center;background:#e8e9e0;border-radius:12px;
+  padding:10px 3px;font-size:12px;color:#718078;
+}
+.progress .active{background:var(--green);color:white}
+.progress .done{background:#dce8d5;color:var(--green)}
+.card{
+  padding:clamp(20px,4vw,36px);background:#fffef9;
+  border:1px solid #e1e5da;border-radius:23px;
+  box-shadow:0 12px 35px #18382d0b;
+}
+h2{font-size:22px;margin:0}
+.subtitle{font-size:13px;color:var(--muted);margin:4px 0 24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:7px}
+.full{grid-column:1/-1}
+label{font-size:13px;font-weight:bold}
+input[type=text],input[type=number],select,textarea{
+  width:100%;padding:12px;border:1px solid #d8dfd3;
+  border-radius:11px;background:white;color:var(--text);outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:#47765d}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.choice{
+  display:flex;gap:10px;align-items:center;padding:14px;
+  border:1px solid #dfe5d9;border-radius:13px;cursor:pointer;
+  background:white;transition:.2s;
+}
+.choice:has(input:checked){border-color:var(--green);background:#eff4e9}
+.choice input{accent-color:var(--green)}
+.choice strong{display:block;font-size:14px}
+.choice small{display:block;font-size:11px;color:var(--muted)}
+.actions{
+  display:flex;justify-content:space-between;gap:10px;
+  margin-top:25px;padding-top:20px;border-top:1px solid #e5e8df;
+}
+.btn{border:0;border-radius:11px;padding:11px 20px;font-weight:bold}
+.primary{background:var(--green);color:white}
+.secondary{background:#e9ede4;color:var(--green)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.item{padding:13px;border-radius:12px;background:#f0f3e9;overflow-wrap:anywhere}
+.item small{display:block;color:var(--muted);font-size:12px}
+.item strong{display:block;font-size:14px}
+.note{background:#faf2e2;padding:14px;border-right:4px solid var(--gold);font-size:12px}
+#error{color:#b34132;font-size:12px;display:none}
+#feedback{color:var(--green);font-size:12px}
+footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
+[hidden]{display:none!important}
+@media(max-width:650px){
+  .hero{grid-template-columns:1fr;gap:20px;margin-top:22px}
+  .art{min-height:210px}
+  .header-note{display:none}
+  .grid,.choices,.summary{grid-template-columns:1fr}
+  .progress{gap:4px}
+  .progress div{font-size:10px;padding:8px 2px}
+  .actions{flex-wrap:wrap}
+  .btn{padding:10px 14px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">⌂ خانه<span>نگار</span></div>
+  <div class="header-note">استودیو ایده‌پردازی معماری</div>
+</header>
+
+<section class="hero">
+  <div>
+    <span class="tag">خانه‌ای برای سبک زندگی تو</span>
+    <h1>خانه رؤیایی‌ات<br>را طراحی کن.</h1>
+    <p>از سبک معماری تا رنگ و چیدمان؛ انتخاب کن، ایده‌ات را بساز و خلاصه طرح خودت را دریافت کن.</p>
+  </div>
+  <div class="art" aria-label="تصویر تزئینی خانه">
+    <div class="sun"></div>
+    <div class="house">
+      <div class="roof"></div>
+      <div class="win"></div>
+      <div class="door"></div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <nav class="progress">
+    <div class="active">۱ · مشخصات</div>
+    <div>۲ · معماری</div>
+    <div>۳ · امکانات</div>
+    <div>۴ · نتیجه</div>
+  </nav>
+
+  <form class="card" id="form">
+    <section class="step">
+      <h2>مشخصات پروژه</h2>
+      <p class="subtitle">اول کمی درباره خانه‌ای که در ذهن داری بگو.</p>
+      <div class="grid">
+        <div class="field">
+          <label for="project">نام پروژه</label>
+          <input id="project" name="project" type="text" placeholder="مثلاً خانه آفتاب" required>
+        </div>
+        <div class="field">
+          <label for="type">نوع خانه</label>
+          <select id="type" name="type">
+            <option>خانه ویلایی</option>
+            <option>آپارتمان</option>
+            <option>خانه دوبلکس</option>
+            <option>بازسازی خانه</option>
+            <option>کلبه کوچک</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="area">زیربنا (متر مربع)</label>
+          <input id="area" name="area" type="number" min="20" max="2000" placeholder="۱۵۰" required>
+        </div>
+        <div class="field">
+          <label for="floors">تعداد طبقات</label>
+          <select id="floors" name="floors">
+            <option>۱ طبقه</option>
+            <option>۲ طبقه</option>
+            <option>۳ طبقه</option>
+            <option>۴ طبقه یا بیشتر</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="place">شهر یا اقلیم (اختیاری)</label>
+          <input id="place" name="place" type="text" placeholder="مثلاً شمال ایران">
+        </div>
+      </div>
+      <p id="error">نام پروژه و زیربنای معتبر را وارد کن.</p>
+    </section>
+
+    <section class="step" hidden>
+      <h2>سبک معماری</h2>
+      <p class="subtitle">سبکی را انتخاب کن که به خانه دلخواهت نزدیک‌تر است.</p>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="style" value="مدرن" checked><span>🏡<strong>مدرن</strong><small>خطوط ساده و پنجره‌های بزرگ</small></span></label>
+        <label class="choice"><input type="radio" name="style" value="مینیمال"><span>◻️<strong>مینیمال</strong><small>سادگی و فضای خلوت</small></span></label>
+        <label class="choice"><input type="radio" name="style" value="ایرانی معاصر"><span>🪴<strong>ایرانی معاصر</strong><small>آجر، حیاط و هندسه ایرانی</small></span></label>
+        <label class="choice"><input type="radio" name="style" value="کلاسیک"><span>🏛️<strong>کلاسیک</strong><small>تقارن و جزئیات ماندگار</small></span></label>
+        <label class="choice"><input type="radio" name="style" value="اسکاندیناوی"><span>🌿<strong>اسکاندیناوی</strong><small>نور طبیعی و چوب</small></span></label>
+        <label class="choice"><input type="radio" name="style" value="روستیک"><span>🌲<strong>روستیک</strong><small>متریال طبیعی و حس گرم</small></span></label>
+      </div>
+      <div class="field" style="margin-top:20px">
+        <label for="palette">رنگ‌های مورد علاقه</label>
+        <select id="palette" name="palette">
+          <option>خاکی و کرم</option>
+          <option>سفید و چوب طبیعی</option>
+          <option>سبز زیتونی و سنگی</option>
+          <option>خاکستری و مشکی</option>
+          <option>آجری و گرم</option>
+          <option>روشن و رنگارنگ</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="step" hidden>
+      <h2>امکانات و فضاها</h2>
+      <p class="subtitle">هرکدام از فضاهای مورد علاقه‌ات را علامت بزن.</p>
+      <div class="choices">
+        <label class="choice"><input type="checkbox" name="spaces" value="آشپزخانه جزیره‌ای"><span><strong>🍳 آشپزخانه جزیره‌ای</strong><small>فضای مناسب آشپزی و دورهمی</small></span></label>
+        <label class="choice"><input type="checkbox" name="spaces" value="حیاط و باغچه"><span><strong>🌳 حیاط و باغچه</strong><small>ارتباط با فضای سبز</small></span></label>
+        <label class="choice"><input type="checkbox" name="spaces" value="تراس و بالکن"><span><strong>☀️ تراس و بالکن</strong><small>فضایی برای استراحت</small></span></label>
+        <label class="choice"><input type="checkbox" name="spaces" value="اتاق کار"><span><strong>💻 اتاق کار</strong><small>فضایی آرام و کاربردی</small></span></label>
+        <label class="choice"><input type="checkbox" name="spaces" value="نورگیر مرکزی"><span><strong>🌤 نورگیر مرکزی</strong><small>ورود نور طبیعی به خانه</small></span></label>
+        <label class="choice"><input type="checkbox" name="spaces" value="ذخیره‌سازی هوشمند"><span><strong>🗄 ذخیره‌سازی هوشمند</strong><small>کمدها و فضاهای چندمنظوره</small></span></label>
+      </div>
+      <div class="grid" style="margin-top:20px">
+        <div class="field">
+          <label for="priority">اولویت اصلی</label>
+          <select id="priority" name="priority">
+            <option>نور طبیعی</option>
+            <option>استفاده بهینه از فضا</option>
+            <option>حریم خصوصی</option>
+            <option>ارتباط با طبیعت</option>
+            <option>مصرف انرژی کمتر</option>
+            <option>هزینه اقتصادی</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="budget">بودجه</label>
+          <select id="budget" name="budget">
+            <option>اقتصادی</option>
+            <option>متوسط</option>
+            <option>انعطاف‌پذیر</option>
+            <option>هنوز مشخص نیست</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="notes">توضیحات بیشتر (اختیاری)</label>
+          <textarea id="notes" name="notes" rows="3" placeholder="ایده‌های دیگر خودت را بنویس..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="step" hidden>
+      <h2>خانه رؤیایی تو</h2>
+      <p class="subtitle">این خلاصه بر اساس انتخاب‌هایت ساخته شده است.</p>
+      <div id="summary" class="summary"></div>
+      <div class="note">این خروجی یک ایده اولیه است، نه نقشه اجرایی یا محاسبه قطعی هزینه. برای ساخت‌وساز، بررسی مهندس معمار و متخصص سازه ضروری است.</div>
+      <div class="actions">
+        <button type="button" class="btn secondary" id="copy">کپی خلاصه</button>
+        <button type="button" class="btn secondary" id="share">اشتراک‌گذاری</button>
+        <button type="button" class="btn primary" id="restart">شروع دوباره ↻</button>
+      </div>
+      <p id="feedback" aria-live="polite"></p>
+    </section>
+
+    <div class="actions" id="navigation">
+      <button type="button" class="btn secondary" id="back" disabled>مرحله قبل</button>
+      <button type="button" class="btn primary" id="next">مرحله بعد ←</button>
+    </div>
+  </form>
+</main>
+
+<footer>خانه‌نگار · ایده‌پردازی برای خانه‌ای به سبک تو</footer>
+
+<script>
+(() => {
+  const form = document.getElementById('form');
+  const steps = [...document.querySelectorAll('.step')];
+  const progress = [...document.querySelectorAll('.progress div')];
+  const back = document.getElementById('back');
+  const next = document.getElementById('next');
+  const navigation = document.getElementById('navigation');
+  const summary = document.getElementById('summary');
+  const feedback = document.getElementById('feedback');
+  let current = 0;
+
+  function val(name) {
+    const el = form.elements[name];
+    if (!el) return '';
+    if (el instanceof RadioNodeList) return el.value || '';
+    return el.value || '';
+  }
+
+  function spaces() {
+    return [...form.querySelectorAll('[name="spaces"]:checked')].map(x => x.value);
+  }
+
+  function update() {
+    steps.forEach((step, i) => step.hidden = i !== current);
+    progress.forEach((item, i) => {
+      item.classList.toggle('active', i === current);
+      item.classList.toggle('done', i < current);
+    });
+    back.disabled = current === 0;
+    navigation.hidden = current === steps.length - 1;
+    next.textContent = current === steps.length - 2
+      ? 'ساخت خلاصه ایده ←' : 'مرحله بعد ←';
+    if (current === steps.length - 1) renderSummary();
+  }
+
+  function validate() {
+    if (current !== 0) return true;
+    const ok = val('project').trim() !== '' &&
+      Number(val('area')) >= 20 && Number(val('area')) <= 2000;
+    document.getElementById('error').style.display = ok ? 'none' : 'block';
+    return ok;
+  }
+
+  function addItem(label, value) {
+    const box = document.createElement('div');
+    box.className = 'item';
+    const small = document.createElement('small');
+    small.textContent = label;
+    const strong = document.createElement('strong');
+    strong.textContent = value || 'انتخاب نشده';
+    box.append(small, strong);
+    summary.append(box);
+  }
+
+  function renderSummary() {
+    summary.replaceChildren();
+    addItem('نام پروژه', val('project'));
+    addItem('نوع خانه', val('type'));
+    addItem('زیربنا', val('area') ? val('area') + ' متر مربع' : '');
+    addItem('تعداد طبقات', val('floors'));
+    addItem('سبک معماری', val('style'));
+    addItem('پالت رنگی', val('palette'));
+    addItem('اولویت', val('priority'));
+    addItem('بودجه', val('budget'));
+    addItem('اقلیم یا محل', val('place'));
+    addItem('امکانات', spaces().join('، '));
+    if (val('notes').trim()) addItem('توضیحات', val('notes').trim());
+  }
+
+  function plainText() {
+    return [
+      'خانه رؤیایی من | خانه‌نگار',
+      'نام پروژه: ' + val('project'),
+      'نوع خانه: ' + val('type'),
+      'زیربنا: ' + val('area') + ' متر مربع',
+      'طبقات: ' + val('floors'),
+      'سبک: ' + val('style'),
+      'رنگ‌ها: ' + val('palette'),
+      'اولویت: ' + val('priority'),
+      'بودجه: ' + val('budget'),
+      'محل: ' + (val('place') || 'مشخص نشده'),
+      'امکانات: ' + (spaces().join('، ') || 'انتخاب نشده'),
+      'توضیحات: ' + (val('notes') || 'ندارد'),
+      '',
+      'این خلاصه، ایده اولیه است و نقشه اجرایی محسوب نمی‌شود.'
+    ].join('\n');
+  }
+
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.append(textarea);
+      textarea.select();
+      const ok = document.execCommand('copy');
+      textarea.remove();
+      return ok;
+    }
+  }
+
+  next.addEventListener('click', () => {
+    if (!validate()) return;
+    if (current < steps.length - 1) {
+      current++;
+      update();
+      document.querySelector('main').scrollIntoView({behavior:'smooth'});
+    }
+  });
+
+  back.addEventListener('click', () => {
+    if (current > 0) {
+      current--;
+      update();
+      document.querySelector('main').scrollIntoView({behavior:'smooth'});
+    }
+  });
+
+  document.getElementById('restart').addEventListener('click', () => {
+    form.reset();
+    current = 0;
+    feedback.textContent = '';
+    document.getElementById('error').style.display = 'none';
+    update();
+    document.querySelector('main').scrollIntoView({behavior:'smooth'});
+  });
+
+  document.getElementById('copy').addEventListener('click', async () => {
+    feedback.textContent = await copyText(plainText())
+      ? 'خلاصه با موفقیت کپی شد.'
+      : 'کپی خودکار در این مرورگر انجام نشد.';
+  });
+
+  document.getElementById('share').addEventListener('click', async () => {
+    const text = plainText();
+    if (navigator.share) {
+      try {
+        await navigator.share({title:'خانه رؤیایی من', text});
+        feedback.textContent = 'اشتراک‌گذاری انجام شد.';
+      } catch (e) {
+        if (e.name !== 'AbortError') feedback.textContent = 'اشتراک‌گذاری انجام نشد.';
+      }
+    } else {
+      feedback.textContent = await copyText(text)
+        ? 'خلاصه کپی شد؛ می‌توانی آن را برای دیگران بفرستی.'
+        : 'اشتراک‌گذاری مستقیم در این مرورگر در دسترس نیست.';
+    }
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
